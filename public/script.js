@@ -391,7 +391,48 @@ function customAlert(message, type = "info") {
                         plugins: {
                             legend: {
                                 display: false
-                            }
+                            },
+                            tooltip: {
+                                enabled: false,
+                                external: function(context) {
+                                    let tooltipEl = document.getElementById('chartjs-tooltip');
+                            
+                                    if (!tooltipEl) {
+                                        tooltipEl = document.createElement('div');
+                                        tooltipEl.id = 'chartjs-tooltip';
+                                        tooltipEl.innerHTML = '<div class="tooltip-content"></div>';
+                                        document.body.appendChild(tooltipEl);
+                                    }
+                            
+                                    const tooltipModel = context.tooltip;
+                            
+                                    if (tooltipModel.opacity === 0) {
+                                        tooltipEl.style.opacity = 0;
+                                        return;
+                                    }
+                            
+                                    const dataPoint = tooltipModel.dataPoints[0];
+                                    const categoria = dataPoint.label;
+                                    const valor = `R$${dataPoint.raw.toFixed(2)}`;
+                                    const corCategoria = context.chart.data.datasets[0].backgroundColor[dataPoint.dataIndex];
+                            
+                                    tooltipEl.querySelector('.tooltip-content').innerHTML = `
+                                        <strong>${categoria}</strong><br>
+                                    `;
+                            
+                                    tooltipEl.style.backgroundColor = corCategoria;
+                                    tooltipEl.style.border = "2px solid white"; 
+                            
+                                    const chartElement = context.chart.canvas;
+                                    const chartRect = chartElement.getBoundingClientRect();
+                            
+                                    tooltipEl.style.opacity = 1;
+                                    tooltipEl.style.left = `${chartRect.left + chartRect.width / 2}px`; 
+                                    tooltipEl.style.top = `${chartRect.bottom + 20}px`;
+                                    tooltipEl.style.transform = "translateX(-50%)"; 
+                                    tooltipEl.style.position = "absolute";
+                                }
+                            }                                       
                         },
                         cutout: '60%'
                     }
