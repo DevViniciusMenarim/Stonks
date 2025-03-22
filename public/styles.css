@@ -1,0 +1,824 @@
+.custom-alert {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    padding: 15px 25px;
+    border-radius: 10px;
+    text-align: center;
+    width: auto;
+    max-width: 400px;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
+    animation: slideDown 0.3s ease-in-out;
+    z-index: 10000000;
+    pointer-events: auto;
+    outline: 2px solid white;
+    font-weight: bold;
+}
+
+.custom-alert button {
+    margin-top: 10px;
+    padding: 8px 12px;
+    border: none;
+    background: white;
+    color: black;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: 0.3s;
+}
+
+.custom-alert button:hover {
+    background: #ddd;
+}
+
+@keyframes slideDown {
+    from { opacity: 0; transform: translateX(-50%) translateY(-10px); }
+    to { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+
+body {
+        display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: linear-gradient(to bottom, #1b1b1b, #000);
+    font-family: 'Poppins', sans-serif;
+    color: white;
+    margin: 0;
+    padding: 20px;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.login-container, .profile-container {
+    width: 80%;
+    max-width: 600px;
+    padding: 35px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    backdrop-filter: blur(15px);
+    transition: all 0.3s ease-in-out;
+    position: relative;
+    outline: 2px solid white;
+    transform: scale(1.2);
+}
+
+
+h1, h2 {
+    margin-bottom: 20px;
+    letter-spacing: 2px;
+    font-weight: 700;
+    font-size: 28px;
+    text-transform: uppercase;
+    color: #ffffff;
+}
+
+.input-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+input {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    text-align: center;
+    font-size: 16px;
+    transition: all 0.3s ease-in-out;
+    backdrop-filter: blur(10px);
+}
+
+input:focus {
+    background: rgba(255, 255, 255, 0.15);
+    transform: scale(1.03);
+    border-color: #3498db;
+    outline: none;
+}
+
+input::placeholder {
+    color: #aaa;
+    text-align: center;
+}
+
+button {
+    width: 80%;
+    padding: 12px;
+    background: linear-gradient(90deg, #0056b3, #007bff);
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 15px;
+    font-size: 16px;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.4);
+    max-width: 650px;
+}
+
+button:hover {
+    background: linear-gradient(90deg, #00408a, #0056b3);
+    transform: scale(1.05);
+    box-shadow: 0px 6px 14px rgba(0, 0, 0, 0.6);
+}
+
+
+.pagina-criar_conta body {
+    background: linear-gradient(to bottom, #333, #000);
+    color: white;
+    text-align: center;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    padding: 20px;
+    height: 100vh;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.pagina-criar_conta .container {
+    background: rgba(255, 255, 255, 0.1);
+    width: 90%; 
+    max-width: 600px; 
+    min-width: 320px; 
+    margin: 5% auto; 
+    padding: 2%; 
+    background: 255, 255, 255, 0.1;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    transform: scale(1.2); 
+    transform-origin: center;
+    outline: 2px solid white;
+}
+
+.pagina-criar_conta h1 {
+    color: #0056b3; 
+}
+
+.pagina-criar_conta .input-group {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-weight: 600;
+}
+
+.pagina-criar_conta input, .pagina-criar_conta textarea, .pagina-criar_conta button {
+    width: 90%;
+    margin: 8px 0;
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    font-size: 1em;
+    text-align: center;
+    
+}
+
+.pagina-criar_conta select {
+    width: 92.5%;
+    margin: 8px 0;
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    font-size: 1em;
+    text-align: center;
+
+}
+
+
+.pagina-criar_conta textarea {
+    resize: none;
+    height: 80px;
+}
+
+.pagina-criar_conta button {
+    background: #0056b3;
+    color: white;
+    font-size: 1.2em;
+    cursor: pointer;
+    transition: background 0.3s;
+    width: 80%;
+    max-width: 650px;
+}
+
+.pagina-criar_conta button:hover {
+    background: #00408a; 
+}
+
+.pagina-criar_conta .back-btn {
+    background: gray;
+    margin-top: 10px;
+}
+
+.pagina-entrar body {
+    background: linear-gradient(to bottom, #333, #000);
+    color: white;
+    text-align: center;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    padding: 20px;
+    height: 100vh;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.pagina-entrar .container {
+    background: rgba(255, 255, 255, 0.1);
+    width: 90%;
+    max-width: 600px;
+    min-width: 320px; 
+    margin: 5% auto; 
+    padding: 2%; 
+    background: 255, 255, 255, 0.1;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    transform: scale(1.2);
+    transform-origin: center;
+    outline: 2px solid white;
+}
+
+.pagina-entrar h1 {
+    color: #0056b3;
+}
+
+.pagina-entrar .input-group {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-weight: 600;
+}
+
+.pagina-entrar input, .pagina-entrar textarea, .pagina-entrar button {
+    width: 90%;
+    margin: 8px 0;
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    font-size: 1em;
+    text-align: center;
+    
+}
+
+.pagina-entrar select {
+    width: 92.5%;
+    margin: 8px 0;
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    font-size: 1em;
+    text-align: center;
+
+}
+
+.pagina-entrar textarea {
+    resize: none;
+    height: 80px;
+}
+
+.pagina-entrar button {
+    background: #0056b3;
+    color: white;
+    font-size: 1.2em;
+    cursor: pointer;
+    transition: background 0.3s;
+    width: 80%;
+    max-width: 650px;
+}
+
+.pagina-entrar button:hover {
+    background: #00408a;
+}
+
+.pagina-entrar .back-btn {
+    background: gray;
+    margin-top: 10px;
+}
+
+.pagina-despesas body {
+    background: linear-gradient(to bottom, #333, #000);
+    color: white;
+    text-align: center;
+    font-family: 'Poppins', sans-serif;
+    padding: 20px;
+    height: 100vh;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.pagina-despesas .container {
+    background: rgba(255, 255, 255, 0.1);
+    width: 90%;
+    max-width: 600px; 
+    min-width: 320px; 
+    margin: 5% auto; 
+    padding: 2%;
+    background: 255, 255, 255, 0.1;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    transform: scale(1.2); 
+    transform-origin: center;
+    outline: 2px solid white;
+    
+}
+
+.pagina-despesas h1 {
+    color: #ff4c4c;
+}
+
+.pagina-despesas .input-group {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.pagina-despesas input, .pagina-despesas textarea, .pagina-despesas button {
+    width: 90%;
+    margin: 8px 0;
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    font-size: 1em;
+    text-align: center;
+}
+
+.pagina-despesas select {
+    width: 92.5%;
+    margin: 8px 0;
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    font-size: 1em;
+    text-align: center;
+
+}
+
+.pagina-despesas input, .pagina-despesas textarea {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    outline: none;
+}
+
+.pagina-despesas textarea {
+    resize: none;
+    height: 80px;
+}
+
+.pagina-despesas button {
+    background: #ff4c4c;
+    color: white;
+    font-size: 1.2em;
+    cursor: pointer;
+    transition: background 0.3s;
+    width: 80%;
+    max-width: 650px;
+}
+
+.pagina-despesas button:hover {
+    background: #e53935;
+}
+
+.pagina-despesas .back-btn {
+    background: gray;
+    margin-top: 10px;
+}
+
+.pagina-metas .container {
+    background: rgba(255, 255, 255, 0.1);
+    width: 90%;
+    max-width: 600px;
+    min-width: 320px; 
+    margin: 5% auto; 
+    padding: 2%; 
+    background: 255, 255, 255, 0.1;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    transform: scale(1.2);
+    transform-origin: center;
+    outline: 2px solid white;
+}
+
+.pagina-metas h1 {
+    color: #0744be;
+}
+
+.pagina-metas .input-group {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.pagina-metas .input-group label {
+    width: 90%;
+    text-align: center;
+    font-weight: 600;
+    margin-top: 5px;
+}
+
+.pagina-metas input, .pagina-metas button {
+    width: 90%;
+    margin: 8px 0;
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    font-size: 1em;
+    text-align: center;
+}
+
+.pagina-metas input {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    outline: none;
+}
+
+.pagina-metas button {
+    background: #0744be;
+    justify-content: center;
+    color: white;
+    font-size: 1.2em;
+    cursor: pointer;
+    transition: background 0.3s;
+    width: 80%;
+    max-width: 500px;
+    flex: 1;
+    padding: 10px;
+    
+    
+}
+
+.pagina-metas button:hover {
+    background: #0625c2;
+}
+
+.pagina-metas .back-btn {
+    background: gray;
+    margin-top: 10px;
+    width: 80%;        
+    max-width: 500px;
+}
+
+.pagina-metas .button-group {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+    width: 80%;
+    max-width: 650px;
+}
+
+.pagina-metas .button-group button {
+    flex: 1;
+}
+
+.pagina-receitas body {
+    background: linear-gradient(to bottom, #333, #000);
+    color: white;
+    text-align: center;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    padding: 20px;
+    height: 100vh;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.pagina-receitas .container {
+    background: rgba(255, 255, 255, 0.1);
+    width: 90%;
+    max-width: 600px; 
+    min-width: 320px; 
+    margin: 5% auto; 
+    padding: 2%;
+    background: 255, 255, 255, 0.1;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    transform: scale(1.2); 
+    transform-origin: center;
+    outline: 2px solid white;
+}
+
+.pagina-receitas h1 {
+    color: #4caf50; 
+}
+
+.pagina-receitas .input-group {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.pagina-receitas input, .pagina-receitas textarea, .pagina-receitas button {
+    width: 90%;
+    margin: 8px 0;
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    font-size: 1em;
+    text-align: center;
+    
+}
+
+.pagina-receitas select {
+    width: 92.5%;
+    margin: 8px 0;
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    font-size: 1em;
+    text-align: center;
+
+}
+
+
+.pagina-receitas textarea {
+    resize: none;
+    height: 80px;
+}
+
+.pagina-receitas button {
+    background: #4caf50;
+    color: white;
+    font-size: 1.2em;
+    cursor: pointer;
+    transition: background 0.3s;
+    width: 80%;
+    max-width: 650px;
+}
+
+.pagina-receitas button:hover {
+    background: #45a049;
+}
+
+.pagina-receitas .back-btn {
+    background: gray;
+    margin-top: 10px;
+}
+
+.pagina-relatorios body {
+    background: linear-gradient(to bottom, #333, #000);
+    color: white;
+    text-align: center;
+    font-family: 'Poppins', sans-serif;
+    padding: 20px;
+    height: 100vh;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.pagina-relatorios .container {
+    background: rgba(255, 255, 255, 0.1);
+    height:40vh;
+    width: 90%;
+    max-width: 600px; 
+    min-width: 320px;
+    margin: 5% auto;
+    padding: 2%; 
+    background: 255, 255, 255, 0.1;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    transform: scale(1.2); 
+    transform-origin: center;
+    outline: 2px solid white;
+    margin-bottom: 10%;
+}
+
+.pagina-relatorios h1 {
+    color: #cdc306;
+}
+
+.pagina-relatorios .input-group {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.pagina-relatorios input, .pagina-relatorios button {
+    width: 90%;
+    margin: 8px 0;
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    font-size: 1em;
+    text-align: center;
+}
+
+.pagina-relatorios input {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    outline: none;
+}
+
+.pagina-relatorios button {
+    background: #cdc306;
+    color: white;
+    font-size: 1.2em;
+    cursor: pointer;
+    transition: background 0.3s;
+    width: 80%;
+    max-width: 650px;
+}
+
+.pagina-relatorios button:hover {
+    background: #e5b635;
+}
+
+.pagina-relatorios .back-btn {
+    background: gray;
+    margin-top: 10px;
+    width: 80%;
+}
+
+.pagina-relatorios table {
+    width: 100%;
+    margin-top: 20px;
+    border-collapse: collapse;
+    display: none;
+}
+
+.pagina-relatorios th, .pagina-relatorios td {
+    padding: 10px;
+    border: 1px solid white;
+}
+
+.pagina-perfil body {
+    background: linear-gradient(to bottom, #222, #000);
+    color: white;
+    text-align: center;
+    font-family: 'Poppins', sans-serif;
+    padding: 20px;
+    height: 100vh;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.pagina-perfil .container {
+    width: 90%;
+    max-width: 600px;
+    min-width: 320px;
+    margin: 5% auto;
+    padding: 2%;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    transform: scale(1.2);
+    transform-origin: center;
+    outline: 2px solid white;
+}
+
+.pagina-perfil button {
+    background: #439d48;
+    width: 80%;
+    max-width: 650px;
+}
+
+.pagina-perfil input {
+    width: 90%;
+    margin: 8px 0;
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    font-size: 1em;
+    text-align: center;
+}
+
+.pagina-perfil .input-group {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-weight: 600;
+}
+
+.pagina-perfil h1 {
+    color: #439d48;
+    font-weight: 600;
+}
+
+.pagina-perfil .back-btn {
+    margin-top: 10px;
+    background: grey;
+}
+
+.pagina-perfil button:hover {
+    background: #3c8f42; 
+}
+
+.pagina-relatorio_gerado body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #222;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .pagina-relatorio_gerado .container {
+            background: rgba(255, 255, 255, 0.1);
+            width: 90%; 
+            max-width: 600px; 
+            min-width: 320px; 
+            margin: 5% auto; 
+            padding: 2%; 
+            background: 255, 255, 255, 0.1;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            transform: scale(1.2);
+            transform-origin: center;
+            outline: 2px solid white;
+        }
+
+        .pagina-relatorio_gerado h1 {
+            font-size: 24px;
+            margin-bottom: 15px;
+            color: #cdc306;
+        }
+
+        .pagina-relatorio_gerado .table-container {
+            background: #444;
+            border-radius: 8px;
+            padding: 10px;
+            max-height: 500px;
+            overflow-y: auto;
+            width: 100%;
+        }
+
+        .pagina-relatorio_gerado table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+        .pagina-relatorio_gerado th, .pagina-relatorio_gerado td {
+            padding: 10px;
+            border-bottom: 2px solid #ffffff;
+        }
+
+        .pagina-relatorio_gerado tr:last-child td {
+            border-bottom: none;
+        }
+
+        .pagina-relatorio_gerado th {
+            color: white;
+        }
+
+        .pagina-relatorio_gerado .categoria-dot {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            margin-right: 5px;
+        }
+
+        .pagina-relatorio_gerado .back-btn {
+            width: 80%;
+            margin-top: 15px;
+            padding: 10px;
+            background: grey;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .pagina-relatorio_gerado .back-btn:hover {
+            background: #e5b635;
+        }
+
+        
+        

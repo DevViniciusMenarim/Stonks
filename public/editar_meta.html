@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Meta Financeira</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js" defer></script>
+</head>
+<body class="pagina-metas">
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            fetch('http://localhost:3000/verificar-sessao')
+                .then(response => response.json())
+                .then(data => {
+                    if (!data.autenticado) {
+                        window.location.href = "entrar.html";
+                    }
+                })
+                .catch(error => {
+                    console.error("Erro ao verificar sessão:", error);
+                    window.location.href = "entrar.html";
+                });
+        });
+
+        document.addEventListener("DOMContentLoaded", async function () {
+            const params = new URLSearchParams(window.location.search);
+            const id_meta = params.get("id");
+
+            if (!id_meta || isNaN(id_meta)) { 
+                await customAlert("Meta não encontrada.", "error");
+                window.location.href = "gerenciar_metas.html";
+                return;
+            }
+
+            await carregarMeta(id_meta);
+        });
+    </script>
+    
+    <div class="container">
+        <h1>Editar Meta Financeira</h1>
+        <input type="hidden" id="id_meta">
+
+        <div class="input-group">
+            <label>Título:</label>
+            <p id="titulo"></p>
+
+            <label>Data Inicial</label>
+            <p id="data_inicio"></p>
+
+            <label for="valor_meta">Valor Meta</label>
+            <input type="number" id="valor_meta" placeholder="Digite o novo valor da meta" required>
+
+            <label for="valor_acumulado">Valor Acumulado</label>
+            <input type="number" id="valor_acumulado" placeholder="Digite o valor acumulado" required>
+
+            <label for="data_fim">Data Final</label>
+            <input type="date" id="data_fim" required>
+        </div>
+        
+        <button onclick="salvarEdicaoMeta()">Salvar Alterações</button>
+        <button class="back-btn" onclick="window.location.href='gerenciar_metas.html'">Cancelar</button>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
+

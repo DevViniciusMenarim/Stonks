@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relatório Gerado</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="pagina-relatorio_gerado">
+    <script>
+        document.addEventListener("DOMContentLoaded", async function () {
+            try {
+                const resposta = await fetch('http://localhost:3000/verificar-sessao', { credentials: 'include' });
+                const data = await resposta.json();
+
+                if (!data.autenticado) {
+                    window.location.href = "entrar.html";
+                }
+            } catch (error) {
+                console.error("Erro ao verificar sessão:", error);
+                window.location.href = "entrar.html";
+            }
+        });
+
+        function formatarValor(valor) {
+            let valorFormatado = parseFloat(valor);
+            return valorFormatado % 1 === 0 ? `R$ ${valorFormatado.toFixed(0)}` : `R$ ${valorFormatado.toFixed(2)}`;
+        }
+
+        document.addEventListener("DOMContentLoaded", async function () {
+            const params = new URLSearchParams(window.location.search);
+            const data_inicio = params.get('data_inicio');
+            const data_fim = params.get('data_fim');
+            const usuarioLogado = JSON.parse(localStorage.getItem('usuarioLogado'));
+
+            if (!usuarioLogado || !data_inicio || !data_fim) {
+                customAlert("Erro ao carregar os dados do relatório.");
+                return;
+            }
+
+            try {
+                const resposta = await fetch(`http://localhost:3000/relatorio-gerado?id_usuario=${usuarioLogado.id}&data_inicio=${data_inicio}&data_fim=${data_fim}`);
+                const dados = await resposta.json();
+
+                const corpoTabela = document.getElementById('corpo-relatorio');
+                corpoTabela.innerHTML = "";
+
+                if (dados.length > 0) {
+                    dados.forEach(d => {
+                        let prefixo = d.movimentacao === "Receita" ? "" : "";
+                        let movimentacaoTipo = d.movimentacao === "Receita" ? "Receita" : "Despesa";
+                        
+                        let dataFormatada = d.data ? d.data.split("T")[0].split("-").reverse().join("/") : "Data inválida";
+
+                        let row = `
+                            <tr>
+                                <td>${d.descricao}</td>
+                                <td>${movimentacaoTipo}</td>
+                                <td>${d.categoria}</td>
+                                <td>${prefixo} ${formatarValor(d.valor)}</td>
+                                <td>${dataFormatada}</td>
+                            </tr>`;
+                        corpoTabela.innerHTML += row;
+                    });
+                } else {
+                    corpoTabela.innerHTML = "<tr><td colspan='5'>Nenhum dado encontrado para este período.</td></tr>";
+                }
+            } catch (error) {
+                console.error("Erro ao buscar relatório:", error);
+                customAlert("Erro ao conectar com o servidor.");
+            }
+        });
+    </script>
+
+    <div class="container">
+        <h1>Despesas e Receitas</h1>
+        <div class="table-container">
+            <table id="tabela-relatorio">
+                <thead>
+                    <tr>
+                        <th>Descrição</th>
+                        <th>Tipo</th>
+                        <th>Categoria</th>
+                        <th>Valor</th>
+                        <th>Data</th>
+                    </tr>
+                </thead>
+                <tbody id="corpo-relatorio"></tbody>
+            </table>
+        </div>             
+        <button class="back-btn" onclick="window.history.back()">Voltar</button>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
+

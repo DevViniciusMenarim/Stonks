@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adicionar Despesa</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+        }
+
+        h1 {
+            font-weight: 600;
+        }
+
+        .container {
+          transform: scale(1.3);
+          transform-origin: center; 
+          width: 100%;
+        }
+    </style>
+</head>
+<body class="pagina-despesas">
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            fetch('http://localhost:3000/verificar-sessao')
+                .then(response => response.json())
+                .then(data => {
+                    if (!data.autenticado) {
+                        window.location.href = "entrar.html";
+                    }
+                })
+                .catch(error => {
+                    console.error("Erro ao verificar sessão:", error);
+                    window.location.href = "entrar.html";
+                });
+        });
+    </script>
+        <div class="container">
+            <h1>Adicionar Despesa</h1>
+            <div class="input-group">
+                <label for="titulo">Nome da Despesa</label>
+                <input type="text" id="titulo" placeholder="Digite a Despesa">
+    
+                <label for="valor_despesa">Valor</label>
+                <input type="number" id="valor_despesa" placeholder="Digite o valor da despesa">
+
+                <label for="categoria">Categoria</label>
+    
+                <select id="categoria">
+                    <option value="Casa">Casa</option>
+                    <option value="Lazer">Lazer</option>
+                    <option value="Viagem">Viagem</option>
+                    <option value="Comida">Comida</option>
+                    <option value="Saúde">Saúde</option>
+                    <option value="Outros">Outros</option>
+                </select>
+    
+                <label for="data_inicio">Data</label>
+                <input type="date" id="data_inicio">
+    
+                
+            </div>
+            
+            <button onclick="salvarDespesa()">Salvar Despesa</button>
+            <button class="back-btn" onclick="window.location.href='inicio.html'">Voltar</button>
+        </div>
+
+    <script>
+        document.getElementById('data_despesa').value = new Date().toISOString().split('T')[0];
+    </script>
+    <script src="script.js"></script>
+</body>
+</html>

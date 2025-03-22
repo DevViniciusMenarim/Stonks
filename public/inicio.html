@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stonks - Gastos Gerais</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+            color: white;
+        }
+
+        body {
+            background: linear-gradient(to bottom, #333, #000);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100vh;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+
+        .header {
+    width: 100%;
+    max-width: 1400px; 
+    display: flex;
+    align-items: center;
+    border-radius: 15px;
+    justify-content: space-between;
+    padding: 25px 50px;
+    background: rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    height: 120px; 
+    position: relative;
+    outline: 2px solid white; 
+}
+
+.user-info {
+    font-size: 1.0rem;
+    font-weight: bold;
+    color: white;
+}
+
+.header h1 {
+    flex-grow: 1;
+    text-align: center;
+    font-size: 5.0rem;
+    font-weight: 700;
+    color: #ffffff;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.header-icon {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+    margin-left: 70px;
+}
+
+.container {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    gap: 30px;
+    width: 100%;
+    max-width: 1400px;
+    margin-top: 60px;
+}
+
+.side-buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 25px;
+    margin-top: 15%;
+}
+
+.btn {
+    background: gray;
+    padding: 20px 40px; 
+    border-radius: 15px;
+    font-size: 1.5em;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    max-width: 220px; 
+    text-align: center;
+    outline: 2px solid white;
+    font-weight: 600;
+}
+
+.btn-green { background: #4CAF50; }
+.btn-red { background: #E53935; }
+.btn-blue { background: #1E88E5; }
+.btn-yellow { background: #FFC107; }
+
+.btn:hover { opacity: 0.8; }
+
+.chart-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 500px;
+    height: auto;
+    margin-left: 80px;
+}
+
+.chart-center {
+    position: absolute;
+    font-size: 3.0em;
+    font-weight: bold;
+    color: #ffffff;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.categories {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 25px;
+    justify-content: center;
+    align-items: center;
+}
+
+.category {
+    width: 120px;
+    height: 120px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    font-size: 1.5em; 
+    font-weight: bold;
+    background: rgba(255, 255, 255, 0.15);
+    text-align: center;
+    outline: 2px solid white; 
+}
+
+.profile-btn {
+    background: none;
+    border: none;
+    font-size: 2.0em;
+    font-weight: bold;
+    color: white;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.profile-btn:hover { color: #4CAF50; }
+
+#chartjs-tooltip {
+    position: absolute;
+    color: white;
+    border-radius: 10px;
+    padding: 12px 18px;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    pointer-events: none;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.5);
+    border: 2px solid white;
+    z-index: 9999;
+    transition: opacity 0.3s ease-in-out;
+}
+
+@media (max-width: 900px) {
+    .container {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+
+    .categories {
+        justify-content: center;
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .categories { grid-template-columns: repeat(2, 1fr); }
+
+    .header {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .chart-container { max-width: 350px; }
+}
+    </style>
+</head>
+<body>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            fetch('http://localhost:3000/verificar-sessao')
+                .then(response => response.json())
+                .then(data => {
+                    if (!data.autenticado) {
+                        window.location.href = "entrar.html";
+                    }
+                })
+                .catch(error => {
+                    console.error("Erro ao verificar sessão:", error);
+                    window.location.href = "entrar.html";
+                });
+        });
+    </script>
+    <div class="header">
+        <img src="icone.png" alt="Logo Stonks" class="header-icon">
+        <div class="user-info">
+            <button id="profile-btn" class="profile-btn" onclick="navigate('perfil.html')">Carregando...</button>
+        </div>
+        <h1>Stonks</h1>
+    </div>
+    <div class="container">
+        <div class="side-buttons">
+            <button class="btn btn-green" onclick="navigate('receita.html')">Receita</button>
+            <button class="btn btn-red" onclick="navigate('despesa.html')">Despesa</button>
+            <button class="btn btn-blue" onclick="navigate('metas.html')">Metas</button>
+            <button class="btn btn-yellow" onclick="navigate('relatorio.html')">Relatório</button>
+        </div>
+        <div class="chart-container">
+            <canvas id="financeChart"></canvas>
+            <div class="chart-center">Saldo:<br><span style="font-size: 1.0em;">R$00.00</span></div>
+        </div>
+        <div class="categories" id="categorias-container"></div>
+    </div>
+    <script src="script.js"></script>
+    <script>
+        function navigate(page) { window.location.href = page; }
+    </script>
+</body>
+</html>
+

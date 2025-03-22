@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciar Metas Financeiras</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js" defer></script>
+</head>
+
+<style>
+.container {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 90%;
+    max-width: 800px;
+    overflow: hidden;
+}
+
+.table-container {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    padding: 10px;
+    max-height: 500px;
+    overflow-y: auto;
+    width: 100%;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+thead {
+    background: #444;
+}
+
+th, td {
+    padding: 10px;
+    border-bottom: 2px solid #ffffff;
+}
+
+td:last-child {
+    text-align: center;
+}
+
+th {
+    color: white;
+}
+
+.editar-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80px; 
+    height: 35px; 
+    background: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.editar-btn:hover {
+    background: #0056b3;
+    transform: scale(1.05); 
+}
+
+.back-btn {
+    width: 100%;
+    margin-top: 15px;
+    padding: 10px;
+    background: #007bff;    
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.back-btn:hover {
+    background: #0056b3;
+}
+</style>
+<body class="pagina-metas">
+    <script>
+        document.addEventListener("DOMContentLoaded", async function () {
+            try {
+                const resposta = await fetch('http://localhost:3000/verificar-sessao', { credentials: 'include' });
+                const data = await resposta.json();
+
+                if (!data.autenticado) {
+                    window.location.href = "entrar.html";
+                }
+            } catch (error) {
+                console.error("Erro ao verificar sessão:", error);
+                window.location.href = "entrar.html";
+            }
+        });
+    </script>
+
+<div class="container">
+    <h1>Gerenciar Metas Financeiras</h1>
+    <div class="table-container">
+        <table id="tabela-metas">
+            <thead>
+                <tr>
+                    <th>Título</th>
+                    <th>Meta</th>
+                    <th>Acumulado</th>
+                    <th>Data Final</th>
+                    <th>Ação</th>
+                </tr>
+            </thead>
+            <tbody id="corpo-metas"></tbody>
+        </table>
+    </div>
+    <button class="back-btn" onclick="window.location.href='metas.html'">Voltar</button>
+</div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", async function () {
+    try {
+        const usuarioLogado = JSON.parse(localStorage.getItem('usuarioLogado'));
+        if (!usuarioLogado || !usuarioLogado.id) {
+            window.location.href = "entrar.html";
+            return;
+        }
+
+        const resposta = await fetch('http://localhost:3000/metas', {
+            method: 'GET',
+            headers: { 'Content-Type': 'application/json' },
+            credentials: 'include'
+        });
+
+        if (!resposta.ok) {
+            throw new Error("Erro ao carregar metas.");
+        }
+
+        const metas = await resposta.json();
+        const corpoTabela = document.getElementById('corpo-metas');
+        corpoTabela.innerHTML = "";
+
+        if (metas.length > 0) {
+            metas.forEach(meta => {
+                let formatarValor = (valor) => valor % 1 === 0 ? `R$ ${valor.toFixed(0)}` : `R$ ${valor.toFixed(2)}`;
+
+                let dataFimFormatada = meta.data_fim.includes("T") 
+                    ? meta.data_fim.split("T")[0].split("-").reverse().join("/")
+                    : meta.data_fim.split("-").reverse().join("/");
+
+                let row = `
+                    <tr>
+                        <td>${meta.titulo}</td>
+                        <td>${formatarValor(meta.valor_meta)}</td>
+                        <td>${formatarValor(meta.valor_acumulado)}</td>
+                        <td>${dataFimFormatada}</td>
+                        <td><button class="editar-btn" onclick="editarMeta(${meta.id_meta})">Editar</button></td>
+                    </tr>`;
+                corpoTabela.innerHTML += row;
+            });
+        } else {
+            corpoTabela.innerHTML = "<tr><td colspan='5'>Nenhuma meta cadastrada.</td></tr>";
+        }
+
+    } catch (error) {
+        console.error("Erro ao carregar metas:", error);
+        customAlert("Erro ao conectar com o servidor.");
+    }
+});
+
+function editarMeta(id) {
+    window.location.href = `editar_meta.html?id=${id}`;
+}
+    </script>
+    <script src="script.js"></script>
+</body>
+</html>

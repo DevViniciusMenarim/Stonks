@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relatório de Gastos</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+        }
+
+        h1 {
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body class="pagina-relatorios">
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            fetch('http://localhost:3000/verificar-sessao')
+                .then(response => response.json())
+                .then(data => {
+                    if (!data.autenticado) {
+                        window.location.href = "entrar.html"; 
+                    }
+                })
+                .catch(error => {
+                    console.error("Erro ao verificar sessão:", error);
+                    window.location.href = "entrar.html";
+                });
+        });
+    </script>
+        
+    <div class="container">
+        <h1>Relatório</h1>
+        <div class="input-group">
+            <label for="data_inicio">Data Inicial:</label>
+            <input type="date" id="data_inicio">
+            
+            <label for="data_fim">Data Final:</label>
+            <input type="date" id="data_fim">
+        </div>
+        
+        <button onclick="gerarRelatorio()">Gerar Relatório</button>
+        <button class="back-btn" onclick="window.location.href='inicio.html'">Voltar</button>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Metas Financeiras</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+
+    <style>
+        .container * {
+            transform: scale(1.0);
+            display: block;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+        }
+
+        h1 {
+            font-weight: 600;
+        }
+    </style>
+</head>
+
+<body class="pagina-metas">
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            fetch('http://localhost:3000/verificar-sessao')
+                .then(response => response.json())
+                .then(data => {
+                    if (!data.autenticado) {
+                        window.location.href = "entrar.html";
+                    }
+                })
+                .catch(error => {
+                    console.error("Erro ao verificar sessão:", error);
+                    window.location.href = "entrar.html";
+                });
+        });
+    </script>
+    
+    <div class="container">
+        <h1>Metas Financeiras</h1>
+        <div class="input-group">
+            <label for="titulo">Título da Meta</label>
+            <input type="text" id="titulo" placeholder="Digite o título">
+
+            <label for="valor_meta">Valor da Meta</label>
+            <input type="number" id="valor_meta" placeholder="Digite o valor da meta">
+
+            <label for="valor_acumulado">Valor Acumulado</label>
+            <input type="number" id="valor_acumulado" placeholder="Digite o valor acumulado">
+
+            <label for="data_inicio">Data Inicial</label>
+            <input type="date" id="data_inicio">
+
+            <label for="data_fim">Data Final</label>
+            <input type="date" id="data_fim">
+        </div>
+        
+        <div class="button-group">
+            <button onclick="salvarMeta()">Salvar Meta</button>
+            <button class="button" onclick="window.location.href='gerenciar_metas.html'">Gerenciar Metas</button>
+        </div>
+        <button class="back-btn" onclick="window.location.href='inicio.html'">Voltar</button>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
